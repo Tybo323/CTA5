@@ -1,0 +1,42 @@
+START
+
+    // Step 1: Obtain input from the user
+    PRINT "Enter text to append to the file: "
+    userInput = READ_INPUT()
+
+    // Step 2: Append input to the provided text file
+    OPEN file "CSC450_CT5_mod5.txt" FOR append
+    IF file is open THEN
+        WRITE userInput TO file
+        CLOSE file
+    ELSE
+        PRINT "Error opening file for appending."
+        END
+    END IF
+
+    // Step 3: Read the contents of the file
+    OPEN file "CSC450_CT5_mod5.txt" FOR read
+    IF file is open THEN
+        content = READ file
+        CLOSE file
+    ELSE
+        PRINT "Error opening file for reading."
+        END
+    END IF
+
+    // Step 4: Reverse the contents of the file
+    reversedContent = REVERSE(content)
+
+    // Step 5: Write the reversed contents to the new file
+    OPEN file "CSC450-mod5-reverse.txt" FOR write
+    IF file is open THEN
+        WRITE reversedContent TO file
+        CLOSE file
+    ELSE
+        PRINT "Error opening file for writing."
+        END
+    END IF
+
+    PRINT "Text appended and contents reversed successfully."
+
+END
