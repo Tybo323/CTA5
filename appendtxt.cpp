@@ -8,20 +8,22 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include <cerrno>
+#include <cstring>
 
 // Function to reverse the contents of the file
 void reverseFileContents(const std::string &inputFile, const std::string &outputFile) {
     std::ifstream inFile(inputFile);
     std::ofstream outFile(outputFile);
-
+    
     if (inFile.is_open() && outFile.is_open()) {
         std::string content((std::istreambuf_iterator<char>(inFile)), (std::istreambuf_iterator<char>()));
         std::reverse(content.begin(), content.end());
         outFile << content;
     } else {
-        std::cerr << "Error opening file for reading or writing." << std::endl;
+        std::cerr << "Error opening file for reading or writing: " << std::strerror(errno) << std::endl;
     }
-
+    
     inFile.close();
     outFile.close();
 }
@@ -29,8 +31,8 @@ void reverseFileContents(const std::string &inputFile, const std::string &output
 int main() {
     std::string userInput;
     std::string inputFilePath = "C:\\Users\\admin\\Desktop\\CSC450_CT5_mod5.txt";
-    std::string outputFilePath = "‪C:\\Users\\admin\\Desktop\\CSC450_CT5_mod5.txt";
-    ‪
+    std::string outputFilePath = "C:\\Users\\admin\\Desktop\\CSC450-mod5-reverse.txt";
+
     // Step 1: Obtain input from the user
     std::cout << "Enter text to append to the file: ";
     std::getline(std::cin, userInput);
@@ -41,7 +43,7 @@ int main() {
         outFile << userInput << std::endl;
         outFile.close();
     } else {
-        std::cerr << "Error opening file for appending." << std::endl;
+        std::cerr << "Error opening file for appending: " << std::strerror(errno) << std::endl;
         return 1;
     }
 
@@ -52,7 +54,3 @@ int main() {
 
     return 0;
 }
-
-
-
-
